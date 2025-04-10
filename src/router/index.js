@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import UsersMainLayout from '../layouts/usersMainLayout.vue';
+import UsersMainLayout from '../layouts/UsersMainLayout.vue';
 import UsersInventory from "../views/UsersInventory.vue";
 import UsersRequested from "../views/UsersRequested.vue";
+import ScanProduct from '@/views/ScanProduct.vue';
 
 
 const routes = [
@@ -18,7 +19,8 @@ const routes = [
         children: [
             {path: '', redirect: 'usersinventory'},
             {path: 'usersinventory', component: UsersInventory},
-            {path: 'usersrequested', component: UsersRequested}
+            {path: 'usersrequested', component: UsersRequested},
+            {path: 'usersScanProduct', component: ScanProduct}
         ]
     },
 ]

@@ -18,6 +18,9 @@
                         Requested Items
                     </router-link>
                 </li>
+                    <router-link to="usersScanProduct" class="nav-link text-white" active-class="active"> 
+                        Scan Product 
+                    </router-link>
                 <li>
                     <button class="btn btn-outline-light mt-4" @click="logout">Logg ut</button>
                 </li>
