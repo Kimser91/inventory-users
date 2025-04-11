@@ -97,9 +97,30 @@
       async submitRequest() {
         try {
           const token = localStorage.getItem('user.token');
-          await axios.post(`${API_BASE_URL}/requests`, this.newProduct, {
+          const userInfoResponse = await axios.get(`${API_BASE_URL}/auth/user`, {
             headers: { Authorization: `Bearer ${token}` }
           });
+
+          const userPermissions = userInfoResponse.data.permissions ? JSON.parse(userInfoResponse.data.permissions) : [];
+
+          if (!userPermissions.length) {
+            alert('You have no permissions (owners) assigned.');
+            return;
+          }
+
+          const mainOwner = userPermissions[0];
+
+          const requestPayload = {
+            ...this.newProduct,
+            owner: mainOwner 
+          };
+
+          console.log("🚀 Sender ny request:", requestPayload);
+
+          await axios.post(`${API_BASE_URL}/requests`, requestPayload, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+
           alert('Request submitted successfully!');
           this.resetForm();
           await this.fetchRequests();
@@ -108,6 +129,7 @@
           alert('Failed to submit request.');
         }
       },
+
       async deleteRequest(id) {
         if (confirm('Are you sure you want to delete this request?')) {
           try {
